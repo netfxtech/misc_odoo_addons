@@ -1,0 +1,44 @@
+<odoo>
+    <data>
+
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="related_user_ids"  widget="many2many_tags"
+                           options="{'no_create': True, 'no_create_edit': True, 'no_open': True,'color_field': 'color'}"
+                           attrs="{'invisible': [('is_company','=',False),('parent_id','!=',False)]}"/>
+                    <div name="parent_access_rights" colspan="2" attrs="{'invisible': ['|',('is_company','=',True),('parent_id','=',False)]}">
+                        <p>Access rights are managed on <button name="open_commercial_entity" type="object" string="the parent company" class="oe_link"/></p>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_res_partner_filter" model="ir.ui.view">
+            <field name="name">res.partner.filter</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="." position="inside">
+                    <field name="related_user_ids"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_partner_tree" model="ir.ui.view">
+            <field name="name">res.partner.tree</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='country_id']" position="after">
+                    <field name="related_user_ids" optional="hide" widget="many2many_tags"
+                           options="{'color_field': 'color'}"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
