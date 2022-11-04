@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+
+        <record id="view_company_form" model="ir.ui.view">
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="color" widget="color_picker"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_company_form" model="ir.ui.view">
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="color" widget="color_picker"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
