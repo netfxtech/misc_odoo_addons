@@ -7,6 +7,16 @@
             <field name="name">Subject to access right tags on Contacts</field>
         </record>
 
+        <record model="ir.rule" id="res_partner_rule">
+            <field name="name">res.partner company</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <!-- We exclude partners that have internal users (`partner_share` field) from
+            the multi-company rule because it might interfere with the user's company rule
+            and make some users unselectable in relational fields. This means that partners
+            of internal users are always visible, not matter the company setting. -->
+            <field name="domain_force">['|', ('company_id', 'in', company_ids), ('company_id', '=', False)]</field>
+        </record>
+
         <record id="access_right_tags_res_partner" model="ir.rule">
             <field name="name">Contacts per Access Rights</field>
             <field name="model_id" ref="model_res_partner"/>
